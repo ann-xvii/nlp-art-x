@@ -5,13 +5,11 @@ RSpec.describe "posts/index", type: :view do
     assign(:posts, [
       Post.create!(
         :name => "Name",
-        :content => "Content",
-        :keywords => ""
+        :content => "Content"
       ),
       Post.create!(
         :name => "Name",
-        :content => "Content",
-        :keywords => ""
+        :content => "Content"
       )
     ])
   end
@@ -20,6 +18,5 @@ RSpec.describe "posts/index", type: :view do
     render
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "Content".to_s, :count => 2
-    assert_select "tr>td", :text => "".to_s, :count => 2
   end
 end

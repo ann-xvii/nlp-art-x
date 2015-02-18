@@ -4,8 +4,7 @@ RSpec.describe "posts/new", type: :view do
   before(:each) do
     assign(:post, Post.new(
       :name => "MyString",
-      :content => "MyString",
-      :keywords => ""
+      :content => "MyString"
     ))
   end
 
@@ -17,8 +16,6 @@ RSpec.describe "posts/new", type: :view do
       assert_select "input#post_name[name=?]", "post[name]"
 
       assert_select "input#post_content[name=?]", "post[content]"
-
-      assert_select "input#post_keywords[name=?]", "post[keywords]"
     end
   end
 end
