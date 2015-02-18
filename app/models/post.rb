@@ -4,13 +4,152 @@ class Post
 
   field :name, type: String
   field :content, type: String
-  # field :keywords, type: Array, default: ['Rome', 'Modern']
+  field :keywords, type: Array, default: ['Rome', 'Modern']
+  field :link_art_uri, type: String
 
   validates :name, presence: true, length: {minimum: 2}
   validates :content, presence: true, length: {minimum: 100}
 
+  
+  # self.information.link_art_title = nil
+  # self.information.link_art_medium = nil
+  # self.information.link_art_label = nil
+  # self.information.link_art_artist = nil
+  
+
   def date_published
       created_at.localtime.strftime("%A, %B %-d, %Y at %l:%M %p")
+  end
+
+
+  def skyttle_sentiment_analysis
+    # base_uri = "http://api.skyttle.com/v0.1/"
+    base_uri = "https://sentinelprojects-skyttle20.p.mashape.com/"
+    # base_uri = "https://sentinelprojects-skyttle20.p.mashape.com/"
+    values   = "{\"text\": \"We have visited this restaurant a few times in the past, and the meals have been ok, but this time we were deeply disappointed.\", \"lang\": \"en\", \"keywords\": 1, \"sentiment\": 1, \"annotate\": 1}"
+    headers  = {"content_type" => "application/json; charset=UTF-8", "X-Mashape-Authorization" => "ENV['MASHAPE_KEY']"}
+    response = RestClient.post base_uri, values, headers
+    puts response
+  end
+
+  # extract keywords, sentiment and polarity from post content
+
+  def sentiment_analysis
+    response = Unirest.post "https://sentinelprojects-skyttle20.p.mashape.com/",
+      headers:{
+        "X-Mashape-Key" => ENV['MASHAPE_KEY'],
+        "Content-Type" => "application/x-www-form-urlencoded",
+        "Accept" => "application/json"
+      },
+      parameters:{
+        "annotate" => 1,
+        "keywords" => 1,
+        "lang" => "en",
+        "sentiment" => 1,
+        "text" => self.content
+      }
+     
+      post_words = response.body
+      # return post_words["docs"][0]["terms"][1]["term"]
+      word_array = post_words["docs"][0]["terms"]
+      # initialize container array for keywords
+      extracted_keywords = []
+      # push keywords into extracted keywords array
+      word_array.each do |word|
+          extracted_keywords << word["term"]
+      end
+
+      # set post.keywords equal to the extracted keywords array, so that keywords are more easily available in view
+      self.keywords = extracted_keywords
+
+      return extracted_keywords
+  end
+
+
+  # select an index between 0 and length of keyword array
+  def select_random_index
+    art_index = rand(1...self.keywords.length)
+    # use index to select a search term
+    search_term = self.keywords[art_index]
+    search_term
+  end
+
+  def brooklyn_gallery_request
+    brooklyn_key = ENV['BROOKLYN_KEY']
+
+    # IF KEYWORD ARRAY LENGTH IS LESS THAN 1, CHOOSE A RANDOM TOPIC
+    # if (self.keywords.length < 1)
+    #   return cooper_hewitt_random_artwork_generator
+    # end
+
+    # format search term for use in building URI
+    escaped_search_term = CGI::escape(self.select_random_index)
+    response = HTTParty.get("http://www.brooklynmuseum.org/opencollection/api/?method=collection.search&version=1&api_key=#{brooklyn_key}&keyword=#{escaped_search_term}&format=json&include_html_style_block=true")
+    # binding.pry
+
+
+
+    response_json = JSON.parse(response.body)
+    # HANDLE CASE OF 0 RESULTS
+    # if response_json["resultset"].nil? 
+    #   return cooper_hewitt_random_artwork_generator
+    # end
+
+
+    # EXTRACT ARTWORK URI AND PUSH TO CONTAINER ARRAY
+    response_json["response"]["resultset"]["items"][0]["images"]["0"]["uri"]
+    container_of_art = []
+    link_to_art = response_json["response"]["resultset"]["items"][0]["uri"]
+    # self.link_art_title = response_json["response"]["resultset"]["items"][0]["title"]
+    # self.link_art_medium = response_json["response"]["resultset"]["uri"][0]["medium"]
+    # self.link_art_label = response_json["response"]["resultset"]["uri"][0]["label"]
+    # self.link_art_artist = response_json["response"]["resultset"]["uri"][0]["artists"][0]["name"]
+    # WHAT DATA DO I WANT?
+    # ARTIST
+    # NATIONALITY
+    # MEDIUM
+    # COLLECITIONS
+    # MUSEUM
+    # CAPTION
+    # DESCRIPTION
+    # OTHER VIEWS OF IMAGE
+    # LINK TO PRINT PURCHASE
+    # ACCESSION NUMBER
+
+
+
+
+    array_of_artwork = response_json["response"]["resultset"]["items"].each do |x|
+      container_of_art << x["images"]["0"]["uri"]
+    end
+
+
+    # check for artwork array or container array to handle NIL
+
+    # if array_of_artwork.length < 1 || container_of_art.length < 1
+    #    # call random video generator
+    #    cooper_hewitt_random_artwork_generator
+      
+    # else
+    #   # otherwise return container of art (array)
+    #   container_of_art
+    # end
+    container_of_art
+
+  end
+
+  def brooklyn_art_selector
+    brooklyn_key = ENV['BROOKLYN_KEY']
+  end
+
+
+  def cooper_hewitt_random_artwork_generator
+    cooperhewitt_key = ENV["API_TOKEN"]
+    # response = HTTParty.get("https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.objects.getRandom&access_token=#{cooperhewitt_key}&has_image=1")
+    response = HTTParty.get("https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.videos.getRandom&access_token=#{cooperhewitt_key}")
+    # video_url = response.video.formats.mp4["720"]
+    video_url = response["video"]["formats"]["mp4"]["720"]
+    return video_url
   end
 
 end
