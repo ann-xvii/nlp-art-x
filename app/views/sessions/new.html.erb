@@ -1,0 +1,39 @@
+<h1>nlp - Curator</h1>
+
+<h5>Sign Up. Discover artwork</h5>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-offset-4 col-md-offset-2 col-lg-4 col-md-8">
+			<div class="panel panel-success">
+				<div class="panel-body">
+					<h1>Log the heck in!</h1>
+
+					<ul>
+					    <%# user.errors.full_messages.each do |msg| %>
+					        <!-- <li><%#= msg %></li> -->
+					    <%# end %>
+					</ul>
+
+					<div>
+						<%= form_for :login do |f| %>
+							<div>
+								<%=f.label :email, "Email:" %>
+								<%=f.text_field :email %>
+							</div>
+							<div>
+								<%=f.label :password, "Password" %>
+								<%=f.password_field :password %>
+							</div>
+							
+							</br>
+							<div class="pull-right">
+								<%=f.submit "Come in!" %>
+							</div>
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

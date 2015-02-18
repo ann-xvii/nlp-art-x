@@ -18,4 +18,5 @@
 //= require angular-rails-templates
 //= require_tree .
 
-// $('.carousel').carousel();
+$('.carousel').carousel();
+

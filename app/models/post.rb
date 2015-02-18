@@ -5,7 +5,8 @@ class Post
   field :name, type: String
   field :content, type: String
   field :keywords, type: Array
-  field :link_art_uri, type: String
+  
+  belongs_to :user
 
   validates :name, presence: true, length: {minimum: 2}
   validates :content, presence: true, length: {minimum: 100}
@@ -42,36 +43,47 @@ class Post
         "Accept" => "application/json"
       },
       parameters:{
-        "annotate" => 1,
+        "annotate" => 0,
         "keywords" => 1,
         "lang" => "en",
-        "sentiment" => 1,
+        "sentiment" => 0,
         "text" => self.content
       }
      
       post_words = response.body
-      # return post_words["docs"][0]["terms"][1]["term"]
+
+      post_words["docs"][0]["terms"]
+       # post_words["docs"][0]["terms"][1]["term"]
       word_array = post_words["docs"][0]["terms"]
+
+      word_array
       # initialize container array for keywords
-      extracted_keywords = []
-      # push keywords into extracted keywords array
+      extracted_keywords = Array.new()
+      # # push keywords into extracted keywords array
       word_array.each do |word|
-          extracted_keywords << word["term"]
+        extracted_keywords = 1
+      #      # extracted_keywords.push(word["term"]) 
+      #      # # self.keywords.push(word["term"])
+      #      # logger.debug extracted_keywords
+      #      # binding.pry
+      #      puts word["term"]
       end
 
-      # set post.keywords equal to the extracted keywords array, so that keywords are more easily available in view
-      self.keywords = extracted_keywords
+      # # set post.keywords equal to the extracted keywords array, so that keywords are more easily available in view
+      # #self.keywords = extracted_keywords
 
-      return extracted_keywords
+      # return extracted_keywords
   end
 
 
   # select an index between 0 and length of keyword array
   def select_random_index
+    
     art_index = rand(1...self.keywords.length)
     # use index to select a search term
     search_term = self.keywords[art_index]
     search_term
+    return search_term
   end
 
   def brooklyn_gallery_request
@@ -83,7 +95,8 @@ class Post
     # end
 
     # format search term for use in building URI
-    escaped_search_term = CGI::escape(self.select_random_index)
+    # escaped_search_term = CGI::escape(self.select_random_index)
+    escaped_search_term = "rome"
     response = HTTParty.get("http://www.brooklynmuseum.org/opencollection/api/?method=collection.search&version=1&api_key=#{brooklyn_key}&keyword=#{escaped_search_term}&format=json&include_html_style_block=true")
     # binding.pry
 
@@ -97,9 +110,14 @@ class Post
 
 
     # EXTRACT ARTWORK URI AND PUSH TO CONTAINER ARRAY
-    response_json["response"]["resultset"]["items"][0]["images"]["0"]["uri"]
     container_of_art = []
-    link_to_art = response_json["response"]["resultset"]["items"][0]["uri"]
+    array_of_artwork = response_json["response"]["resultset"]["items"].each do |x|
+      container_of_art << x["images"]["0"]["uri"]
+    end
+
+    # response_json["response"]["resultset"]["items"][0]["images"]["0"]["uri"]
+    
+    # link_to_art = response_json["response"]["resultset"]["items"][0]["uri"]
     # self.link_art_title = response_json["response"]["resultset"]["items"][0]["title"]
     # self.link_art_medium = response_json["response"]["resultset"]["uri"][0]["medium"]
     # self.link_art_label = response_json["response"]["resultset"]["uri"][0]["label"]
@@ -119,9 +137,7 @@ class Post
 
 
 
-    array_of_artwork = response_json["response"]["resultset"]["items"].each do |x|
-      container_of_art << x["images"]["0"]["uri"]
-    end
+    
 
 
     # check for artwork array or container array to handle NIL

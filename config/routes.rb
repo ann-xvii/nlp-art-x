@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  get 'user/new'
+  
+  # routes for sessions, "vanilla" rails 
+  get '/login' => 'sessions#new', as: :login
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+
+  get 'users/new' => 'users#new', as: :signup
 
   resources :posts
+  resources :users
 
   root 'home#index'
 
