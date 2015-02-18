@@ -1,10 +1,12 @@
 <div class="posts-index">
+
 <!-- page-header adds faint underline and padding, bootstrap class -->
 <div class="page-header">
   <h1>Thoughts. Galleries.</h1>  
 </div>
-
-<%= link_to "Post something cool...", new_post_path, class: "btn btn-info" %>
+<span class="button-center">
+<%= link_to "Post something cool...", new_post_path, class: "btn btn-default", id: "button-classic" %>
+</span>
 
 <% @posts.each do |post| %>
   <div class="post">
@@ -19,12 +21,12 @@
       <% end %>
 
       <span class="admin">
-        <%= link_to "Edit", edit_post_path(post) %> |
+        | <%= link_to "Edit", edit_post_path(post) %> |
         <%= link_to "Delete", post, method: :delete, data: {confirm: "Are you sure you want to delete this post?"} %>
       </span> <!-- end of admin class -->
 
     </div> <!-- end of meta class -->
-  </div>
+  </div> <!-- end of post container -->
 <% end %>
 
 
