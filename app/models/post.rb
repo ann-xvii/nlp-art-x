@@ -4,7 +4,7 @@ class Post
 
   field :name, type: String
   field :content, type: String
-  field :keywords, type: Array, default: ['Rome', 'Modern']
+  field :keywords, type: Array
   field :link_art_uri, type: String
 
   validates :name, presence: true, length: {minimum: 2}
@@ -150,6 +150,10 @@ class Post
     # video_url = response.video.formats.mp4["720"]
     video_url = response["video"]["formats"]["mp4"]["720"]
     return video_url
+  end
+
+  def rijksmuseum_request
+    # response = HTTParty
   end
 
 end
