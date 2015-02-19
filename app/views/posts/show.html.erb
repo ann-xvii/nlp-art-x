@@ -9,16 +9,29 @@
   <strong>Content:</strong>
   <%= @post.content %>
 </p>
-
-<p>
-	<strong>selector</strong>
-	<%= @post.select_random_index %>
-</p>
-
 <p>
 	<strong>Keyword:</strong>
 	<%= @post.keywords %>
 </p>
+
+<p>
+	<strong>selector</strong>
+	<%= @post.select_random_index %> | <span class="glyphicon glyphicon-heart" style="font-size: 20px"></span>
+</p>
+
+<p>
+	<strong>Rijksmuseum search</strong>
+	<% if !@post.rijksmuseum_request.nil? %>
+		<% @post.rijksmuseum_request.each do |item| %>
+			<%= item[:title] %><br/>
+			<%= image_tag(item[:image]) %>
+		<% end %>
+	<% end %>
+</p>
+
+
+
+
 
 <div>
 	<% @post.brooklyn_gallery_request.each do |picture| %>

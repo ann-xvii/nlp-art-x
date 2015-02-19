@@ -5,7 +5,7 @@ class Post
   field :name, type: String
   field :content, type: String
   field :keywords, type: Array
-  field :favorite_collections, type: Object
+  field :favorite_collections, type: Object, default: {key: "", value: []}
   
   belongs_to :user
 
@@ -76,20 +76,35 @@ class Post
       # # set post.keywords equal to the extracted keywords array, so that keywords are more easily available in view
       # self.keywords = extracted_keywords
 
-      return extracted_keywords
+      # return extracted_keywords
+
+      # split keyword phrases into individual words
+      split_extracted_keywords = []
+      extracted_keywords.each do |keyword|
+        x = keyword.split(" ")
+        x.each do |new_word|
+          split_extracted_keywords << new_word
+        end
+      end
+
+      return split_extracted_keywords
   end
 
 
   # select an index between 0 and length of keyword array
   def select_random_index
     keyword_length = self.keywords.length
-    art_index = rand(1...keywords.length)
+    art_index = rand(0...keywords.length)
     # # use index to select a search term
     search_term = self.keywords[art_index].downcase
     # search_term
     # return search_term
   end
 
+
+  def escaped_search_term
+    CGI::escape(self.select_random_index)
+  end
 
 
   def brooklyn_gallery_request
@@ -101,13 +116,17 @@ class Post
     # end
 
     # format search term for use in building URI
-    escaped_search_term = CGI::escape(self.select_random_index)
+    escaped_search_term = self.escaped_search_term
+    # escaped_search_term = CGI::escape(self.select_random_index)
     # escaped_search_term = "rome"
     response = HTTParty.get("http://www.brooklynmuseum.org/opencollection/api/?method=collection.search&version=1&api_key=#{brooklyn_key}&keyword=#{escaped_search_term}&format=json&include_html_style_block=true")
     # binding.pry
 
     response_json = JSON.parse(response.body)
-    # HANDLE CASE OF 0 RESULTS
+    #HANDLE CASE OF 0 RESULTS
+
+    # if response resultset is nil, run function again
+    # or random video
     # if response_json["resultset"].nil? 
     #   return cooper_hewitt_random_artwork_generator
     # end
@@ -121,7 +140,7 @@ class Post
     # response_json["response"]["resultset"]["items"][0]["images"]["0"]["uri"]
     
     # link_to_art = response_json["response"]["resultset"]["items"][0]["uri"]
-    # self.link_art_title = response_json["response"]["resultset"]["items"][0]["title"]
+    # self.favorite_collections["link_art_title"] = response_json["response"]["resultset"]["items"][0]["title"]
     # self.link_art_medium = response_json["response"]["resultset"]["uri"][0]["medium"]
     # self.link_art_label = response_json["response"]["resultset"]["uri"][0]["label"]
     # self.link_art_artist = response_json["response"]["resultset"]["uri"][0]["artists"][0]["name"]
@@ -167,7 +186,39 @@ class Post
   end
 
   def rijksmuseum_request
-    # response = HTTParty
+    rijksmuseum_key = ENV['RIJKSMUSEUM_KEY']
+    escaped_search_term = self.escaped_search_term
+    response = HTTParty.get("https://www.rijksmuseum.nl/api/en/collection?key=#{rijksmuseum_key}&format=json&q=#{escaped_search_term}&imgonly=true")
+
+    response_json = JSON.parse(response.body)
+
+    rijksmuseum_array = response_json["artObjects"]
+
+    
+
+    array_of_container_objects = []
+
+    rijksmuseum_array.each do |item|
+      container_array = {
+      title: "",
+      image: "",
+      artist: "",
+      id: ""
+    }
+
+    if item["longTitle"].nil? || item["webImage"].nil? || item["principalOrFirstMaker"].nil?
+      return cooper_hewitt_random_artwork_generator
+    end
+      container_array[:title] = item["longTitle"]
+      container_array[:image] = item["webImage"]["url"]
+      container_array[:artist] = item["principalOrFirstMaker"]
+      container_array[:id] = item["id"]
+
+      array_of_container_objects.push(container_array)
+    end
+
+    # container_array
+    array_of_container_objects
   end
 
 end

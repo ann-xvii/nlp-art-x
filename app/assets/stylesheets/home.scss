@@ -1,3 +1,128 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+html,body{height:100%;}
+
+.container.fill {
+	height: 105%;
+}
+	.carousel,.item,.active{height:100%;}
+	.carousel-inner{height:100%;}
+	.fill{width:100%;height:100%;background-position:center;background-size:contain;}
+
+	/* faster sliding speed */
+	.carousel-inner > .item {
+	    -webkit-transition: 0.6s ease-in-out left;
+	    -moz-transition: 0.6s ease-in-out left;
+	    -o-transition: 0.6s ease-in-out left;
+	    transition: 0.6s ease-in-out left;
+	}
+
+	/* keep full widget on smaller screens */
+	@media (max-width: 767px) { 
+		body {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	.container.fill {
+		background-color: rgba(0, 0, 0, 1);
+		height: 100% !important;
+		width: 100% !important;
+		padding-right: 0px !important;
+		padding-left: 0px !important;
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+
+}
+
+.item {
+	height: 100%;
+	width: 100%;
+	padding-right: 0px;
+	padding-left: 0px;
+	margin-right: 0;
+	margin-left: 0;
+	background-size: cover;
+}
+
+
+
+
+#slide-1 {
+	// background-image: image-url('Squeeze.jpg');
+	background-image: image-url('SK-A-2248.jpg');
+	background-size: 100%;
+	background-position: 85% 45%;
+	z-index: 1;
+	position: absolute;
+}
+
+#slide-2 {
+	background-image: image-url('anahita.jpg');
+	z-index: 1;
+	position: absolute;
+}
+
+#slide-3 {
+	background-image: image-url('nightwatch.jpg');
+	background-size: 100% auto;
+	z-index: 1;
+	position: absolute;
+}
+
+#slide-4 {
+	background-image: image-url('shiva.jpg');
+	background-size: 100% auto;
+	background-position: 45% 45%;
+	z-index: 1;
+	position: absolute;
+}
+
+#slide-5 {
+	background-image: image-url('AK-MAK-84.jpg');
+	background-size: 100% auto;
+	background-position: 45% 45%;
+	z-index: 1;
+	position: absolute;
+}
+
+.middle-modal {
+	z-index: 2;
+	position: absolute;
+	top: 25%;
+	right: 0;
+	left: 0;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	width: 40% !important;
+	height: 30% !important;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+
+	.modal-text-home {
+		font-family: "Helvetica Neue Light";
+		font-weight: lighter;
+		font-size: 30px;
+		color: white;
+	}
+}
+
+.modal-form-home {
+	color: rgba(10, 10, 10, 0.9);
+	background-color: rgba(110, 110, 110, 0.9);
+	width: 100%;
+	text-align: center;
+
+	input {
+		width: 90%;
+		text-align: center;
+	}
+}
+
+
+

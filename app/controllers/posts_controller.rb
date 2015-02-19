@@ -35,6 +35,9 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.keywords = Post.sentiment_analysis(@post.content)
+    # find user using current user
+    @user = current_user
+    @user.posts.push(@post)
 
     respond_to do |format|
       if @post.save
@@ -70,6 +73,12 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def fuzzy_search
+    
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

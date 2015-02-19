@@ -1,1 +1,8 @@
 <h1>Welcome to Curator, <%= current_user.name %></h1>
+
+<h2>Timeline</h2>
+
+<% @user.posts.each do |post| %>
+<h4><%= post.name %></h4>
+<h4><%= post.content %></h4>
+<% end %>

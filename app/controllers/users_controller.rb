@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
 		def show
 			@user = User.find(params[:id])
+			@post = @user.posts
 		end
 
 		def new
@@ -43,12 +44,12 @@ class UsersController < ApplicationController
 			end
 		end
 
-		def add_activity
+		def add_post
 			@user = User.find(params[:user][:id])
 			# binding.pry
-			@activity = Activity.find(params[:user][:activity_ids][:id])
-			@user.activities.push(@activity)
-			redirect_to activities_path
+			@post = Post.find(params[:user][:posts_ids][:id])
+			@user.posts.push(@post)
+			redirect_to user_path
 		end
 
 		def destroy
@@ -65,7 +66,7 @@ class UsersController < ApplicationController
 
 		private
 		def  user_params
-			params.require(:user).permit(:name, :email, :password, :password_confirmation, :posts_ids => [])
+			params.require(:user).permit(:name, :email, :password, :password_confirmation, :post_ids => [])
 			
 		end
 

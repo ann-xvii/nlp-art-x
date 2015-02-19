@@ -16,7 +16,8 @@
 //= require angular-resource
 //= require angular-route
 //= require angular-rails-templates
+//= require bootstrap-sprockets
 //= require_tree .
 
-$('.carousel').carousel();
+$(".carousel").carousel();
 
