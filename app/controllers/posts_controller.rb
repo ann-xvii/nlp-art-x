@@ -34,6 +34,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    @post.keywords = Post.sentiment_analysis(@post.content)
 
     respond_to do |format|
       if @post.save

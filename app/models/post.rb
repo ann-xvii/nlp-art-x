@@ -5,6 +5,7 @@ class Post
   field :name, type: String
   field :content, type: String
   field :keywords, type: Array
+  field :favorite_collections, type: Object
   
   belongs_to :user
 
@@ -23,19 +24,19 @@ class Post
   end
 
 
-  def skyttle_sentiment_analysis
-    # base_uri = "http://api.skyttle.com/v0.1/"
-    base_uri = "https://sentinelprojects-skyttle20.p.mashape.com/"
-    # base_uri = "https://sentinelprojects-skyttle20.p.mashape.com/"
-    values   = "{\"text\": \"We have visited this restaurant a few times in the past, and the meals have been ok, but this time we were deeply disappointed.\", \"lang\": \"en\", \"keywords\": 1, \"sentiment\": 1, \"annotate\": 1}"
-    headers  = {"content_type" => "application/json; charset=UTF-8", "X-Mashape-Authorization" => "ENV['MASHAPE_KEY']"}
-    response = RestClient.post base_uri, values, headers
-    puts response
-  end
+  # def skyttle_sentiment_analysis
+  #   # base_uri = "http://api.skyttle.com/v0.1/"
+  #   base_uri = "https://sentinelprojects-skyttle20.p.mashape.com/"
+  #   # base_uri = "https://sentinelprojects-skyttle20.p.mashape.com/"
+  #   values   = "{\"text\": \"We have visited this restaurant a few times in the past, and the meals have been ok, but this time we were deeply disappointed.\", \"lang\": \"en\", \"keywords\": 1, \"sentiment\": 1, \"annotate\": 1}"
+  #   headers  = {"content_type" => "application/json; charset=UTF-8", "X-Mashape-Authorization" => "ENV['MASHAPE_KEY']"}
+  #   response = RestClient.post base_uri, values, headers
+  #   puts response
+  # end
 
   # extract keywords, sentiment and polarity from post content
 
-  def sentiment_analysis
+  def self.sentiment_analysis(content)
     response = Unirest.post "https://sentinelprojects-skyttle20.p.mashape.com/",
       headers:{
         "X-Mashape-Key" => ENV['MASHAPE_KEY'],
@@ -47,7 +48,7 @@ class Post
         "keywords" => 1,
         "lang" => "en",
         "sentiment" => 0,
-        "text" => self.content
+        "text" => content
       }
      
       post_words = response.body
@@ -55,36 +56,41 @@ class Post
       post_words["docs"][0]["terms"]
        # post_words["docs"][0]["terms"][1]["term"]
       word_array = post_words["docs"][0]["terms"]
+      extracted_keywords = []
 
-      word_array
+      for i in 0...word_array.length
+        extracted_keywords << word_array[i]["term"]
       # initialize container array for keywords
-      extracted_keywords = Array.new()
-      # # push keywords into extracted keywords array
-      word_array.each do |word|
-        extracted_keywords = 1
-      #      # extracted_keywords.push(word["term"]) 
-      #      # # self.keywords.push(word["term"])
-      #      # logger.debug extracted_keywords
-      #      # binding.pry
-      #      puts word["term"]
       end
+      # # push keywords into extracted keywords array
+      # word_array.each do |word|
+      #   # extracted_keywords = 1
+      #   word.term
+      # #      # extracted_keywords.push(word["term"]) 
+      # #      # # self.keywords.push(word["term"])
+      # #      # logger.debug extracted_keywords
+      # #      # binding.pry
+      # #      puts word["term"]
+      # end
 
       # # set post.keywords equal to the extracted keywords array, so that keywords are more easily available in view
-      # #self.keywords = extracted_keywords
+      # self.keywords = extracted_keywords
 
-      # return extracted_keywords
+      return extracted_keywords
   end
 
 
   # select an index between 0 and length of keyword array
   def select_random_index
-    
-    art_index = rand(1...self.keywords.length)
-    # use index to select a search term
-    search_term = self.keywords[art_index]
-    search_term
-    return search_term
+    keyword_length = self.keywords.length
+    art_index = rand(1...keywords.length)
+    # # use index to select a search term
+    search_term = self.keywords[art_index].downcase
+    # search_term
+    # return search_term
   end
+
+
 
   def brooklyn_gallery_request
     brooklyn_key = ENV['BROOKLYN_KEY']
@@ -95,19 +101,16 @@ class Post
     # end
 
     # format search term for use in building URI
-    # escaped_search_term = CGI::escape(self.select_random_index)
-    escaped_search_term = "rome"
+    escaped_search_term = CGI::escape(self.select_random_index)
+    # escaped_search_term = "rome"
     response = HTTParty.get("http://www.brooklynmuseum.org/opencollection/api/?method=collection.search&version=1&api_key=#{brooklyn_key}&keyword=#{escaped_search_term}&format=json&include_html_style_block=true")
     # binding.pry
-
-
 
     response_json = JSON.parse(response.body)
     # HANDLE CASE OF 0 RESULTS
     # if response_json["resultset"].nil? 
     #   return cooper_hewitt_random_artwork_generator
     # end
-
 
     # EXTRACT ARTWORK URI AND PUSH TO CONTAINER ARRAY
     container_of_art = []
@@ -134,12 +137,6 @@ class Post
     # LINK TO PRINT PURCHASE
     # ACCESSION NUMBER
 
-
-
-
-    
-
-
     # check for artwork array or container array to handle NIL
 
     # if array_of_artwork.length < 1 || container_of_art.length < 1
@@ -151,6 +148,7 @@ class Post
     #   container_of_art
     # end
     container_of_art
+
 
   end
 
