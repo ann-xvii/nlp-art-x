@@ -7,6 +7,7 @@ class User
   field :email, type: String
   field :password_digest, type: String
   field :admin, type: Boolean, default: false
+  field :favorite_collections, type: Object, default: {key: "", value: []}
 
   attr_reader :password
 
@@ -15,6 +16,7 @@ class User
 
   # set up relationships
   has_many :posts, dependent: :destroy
+  has_many :galleries, dependent: :destroy
 
 
   # validate email presence, format and length

@@ -5,7 +5,7 @@ class Post
   field :name, type: String
   field :content, type: String
   field :keywords, type: Array
-  field :favorite_collections, type: Object, default: {key: "", value: []}
+  
   
   belongs_to :user
   has_many :galleries
@@ -191,6 +191,14 @@ class Post
 
   # end
 
+  def cooper_hewitt_request
+    cooperhewitt_key = ENV["API_TOKEN"]
+    escaped_search_term = self.escaped_search_term
+    response = HTTParty.get("https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.search.collection&access_token=#{cooperhewitt_key}&query=#{escaped_search_term}&has_images=1&page=1&per_page=12")
+
+    response_json = JSON.parse(response.body)
+  end
+
 
   def rijksmuseum_request
     rijksmuseum_key = ENV['RIJKSMUSEUM_KEY']
@@ -199,9 +207,13 @@ class Post
 
     response_json = JSON.parse(response.body)
 
-    rijksmuseum_array = response_json["artObjects"]
+
+    rijksmuseum_response_count = response_json["count"]
 
     
+
+
+    rijksmuseum_array = response_json["artObjects"]
 
     array_of_container_objects = []
 

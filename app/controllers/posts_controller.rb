@@ -15,6 +15,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }
@@ -23,7 +24,12 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    if current_user.nil?
+      flash[:danger] = "You must be a member to make a post! Why not join?"
+      redirect_to signup_path
+    else
+      @post = Post.new
+    end
   end
 
   # GET /posts/1/edit
@@ -33,22 +39,31 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
-    @post.keywords = Post.sentiment_analysis(@post.content)
-    # find user using current user
-    @user = current_user
-    @user.posts.push(@post)
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render json: @post, status: :created }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+    if current_user.nil?
+      flash[:danger] = "You must be a member to make a post! Why not join?"
+      redirect_to signup_path
+
+    else
+      @post = Post.new(post_params)
+      @post.keywords = Post.sentiment_analysis(@post.content)
+      # find user using current user
+      @user = current_user
+      @user.posts.push(@post)
+
+      respond_to do |format|
+        if @post.save
+          format.html { redirect_to @post, notice: 'Post was successfully created.' }
+          format.json { render json: @post, status: :created }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    end  
   end
+
+
 
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json

@@ -1,8 +1,9 @@
 <h1>Welcome to Curator, <%= current_user.name %></h1>
 
-<h2>Timeline</h2>
-
+<h2>View Your Past Posts</h2>
+{{ main.controllertest }}
 <% @user.posts.each do |post| %>
-<h4><%= post.name %></h4>
-<h4><%= post.content %></h4>
+<p><strong><%= post.name %></strong></p>
+<p><%= link_to post.content, post_path(post) %></p>
+<p><%= image_tag(post.rijksmuseum_request[0][:image], class: "img-responsive") %></p>
 <% end %>

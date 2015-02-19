@@ -14,11 +14,18 @@
 	<%= @post.keywords %>
 </p>
 
+<!-- <p>
+	<strong>Cooper Hewitt Request:</strong>
+	<%#= @post.cooper_hewitt_request %>
+</p> -->
+
 <p>
-	<strong>selector</strong>
-	<%= @post.select_random_index %> | <span class="glyphicon glyphicon-heart" style="font-size: 20px"></span>
+	<strong id="selector-id">selector</strong>
+
+	<%= @post.select_random_index %> | <span ng-click="main.addFavorite()" class="glyphicon glyphicon-heart" style="font-size: 20px"></span>
 </p>
 
+<% if @post.rijksmuseum_request %>
 <p>
 	<strong>Rijksmuseum search</strong>
 
@@ -29,7 +36,7 @@
 
 	
 </p>
-
+<% end %>
 
 
 
