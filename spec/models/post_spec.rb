@@ -32,7 +32,7 @@ RSpec.describe Post, type: :model do
 
   
   it {expect(subject).to respond_to(:date_published)}
-  it {expect(subject).to respond_to(:sentiment_analysis)}
+  # it {expect(subject).to respond_to(:sentiment_analysis)}
   it {expect(subject).to respond_to(:select_random_index)}
   it {expect(subject).to respond_to(:brooklyn_gallery_request)}
   it {expect(subject).to respond_to(:cooper_hewitt_random_artwork_generator)}

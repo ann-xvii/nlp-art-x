@@ -8,6 +8,7 @@ class Post
   field :favorite_collections, type: Object, default: {key: "", value: []}
   
   belongs_to :user
+  has_many :galleries
 
   validates :name, presence: true, length: {minimum: 2}
   validates :content, presence: true, length: {minimum: 100}

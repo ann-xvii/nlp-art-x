@@ -11,11 +11,11 @@
 <% @posts.each do |post| %>
   <div class="post">
     <strong><%= post.name %></strong>
-    <p><%= post.content %></p>
+    <p><%= link_to post.content, post_path(post) %></p>
     <div class="meta">
 
       <% if post.date_published %> <!-- only display times for items with timestamp -->
-        <%= link_to time_ago_in_words(post.date_published) + " ago", post %>
+        <%= link_to "Posted " + time_ago_in_words(post.date_published) + " ago", post %>
       <% else %>
         <%= link_to "Show", post %>
       <% end %>

@@ -24,7 +24,7 @@
 
 		<% @post.rijksmuseum_request.each do |item| %>
 			<%= item[:title] %><br/>
-			<%= image_tag(item[:image], class: "dutchmen") %>
+			<%= image_tag(item[:image], class: "dutchmen img-responsive") %>
 		<% end %>
 
 	
