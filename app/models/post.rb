@@ -185,6 +185,12 @@ class Post
     return video_url
   end
 
+
+  # def return_type_check
+
+  # end
+
+
   def rijksmuseum_request
     rijksmuseum_key = ENV['RIJKSMUSEUM_KEY']
     escaped_search_term = self.escaped_search_term
@@ -207,7 +213,13 @@ class Post
     }
 
     if item["longTitle"].nil? || item["webImage"].nil? || item["principalOrFirstMaker"].nil?
-      return cooper_hewitt_random_artwork_generator
+      # return cooper_hewitt_random_artwork_generator
+      container_array[:title] = "Not found"
+      container_array[:image] = "Not found"
+      container_array[:artist] = "Not found"
+      container_array[:id] = "Not found"
+      array_of_container_objects.push(container_array)
+      return array_of_container_objects
     end
       container_array[:title] = item["longTitle"]
       container_array[:image] = item["webImage"]["url"]
