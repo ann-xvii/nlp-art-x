@@ -17,6 +17,7 @@
 		self.controllertest = "test yay";
 		self.controllertest2;
 		self.sentiment_scores;
+		self.sentiment_obj;
 		// Create PostFactory as an object
 		self.Post = new PostsFactory();
 		self.id = ipCookie('id');
@@ -41,10 +42,12 @@
 				console.log(data);
 				self.results = data;
 				self.sentiment_scores = self.results["docs"][0]["sentiment_scores"];
-				console.log(self.sentiment_scores);
-				console.log("pos ", self.sentiment_scores["pos"]);
-				console.log("neg ", self.sentiment_scores["neg"]);
-				console.log("neu ", self.sentiment_scores["neu"]);
+				// console.log(self.sentiment_scores);
+				// console.log("pos ", self.sentiment_scores["pos"]);
+				// console.log("neg ", self.sentiment_scores["neg"]);
+				// console.log("neu ", self.sentiment_scores["neu"]);
+				self.sentiment_obj = self.results["docs"][0]["sentiment"];
+				console.log(self.sentiment_obj);
 			});
 		}
 

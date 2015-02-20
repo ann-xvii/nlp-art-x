@@ -35,10 +35,21 @@ Explore other keywords:
 
 <span ng-click="main.sentiment_analysis()" style="padding: 3px;">Click to analyze the text!<br/><span class="glyphicon glyphicon-play" style="font-size: 20px"></span></span>
 
-
-<svg id="pie-chart" width="250" height="250">
+<div ng-show="main.sentiment_scores['pos']">
+	<p style="font-size: 20px; color: pink;">Positive: {{ main.sentiment_scores["pos"] }}% | </p>
+	<p style="font-size: 20px; color: #ccc;">Neutral: {{ main.sentiment_scores["neu"] }}% |</p>
+	<p style="font-size: 20px; color: blue;">Negative: {{ main.sentiment_scores["neg"] }}% |</p>
+</div>
+<!-- <svg id="pie-chart" width="250" height="250" >
 <div id="chart"></div>
-</svg>
+</svg> -->
+
+<div>
+	<p ng-repeat="item in main.sentiment_obj">
+		Polarity: {{ item["polarity"] }}<br/>
+		Text: {{ item["text"] }}
+	</p>
+</div>
 
 
 
