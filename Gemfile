@@ -27,6 +27,7 @@ gem 'unirest', '~> 1.1.2'
 gem 'elasticsearch'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem 'sidekiq'
 
 
 # ANGULAR
