@@ -46,9 +46,10 @@ class Post
   # extract keywords, sentiment and polarity from post content
 
   def self.sentiment_analysis(content)
+    mashape_key = ENV['MASHAPE_KEY']
     response = Unirest.post "https://sentinelprojects-skyttle20.p.mashape.com/",
       headers:{
-        "X-Mashape-Key" => ENV['MASHAPE_KEY'],
+        "X-Mashape-Key" => mashape_key,
         "Content-Type" => "application/x-www-form-urlencoded",
         "Accept" => "application/json"
       },
