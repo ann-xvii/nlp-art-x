@@ -25,7 +25,7 @@
 //= require bootstrap-sprockets
 //= require "app"
 //= require_tree .
-//= require_tree ./templates
+
 
 $(".carousel").carousel();
 
