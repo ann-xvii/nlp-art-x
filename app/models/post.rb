@@ -2,6 +2,8 @@
 class Post
   include Mongoid::Document
   include Mongoid::Timestamps
+  # after_initialize  callback, call method.. :
+  # after_initialize :create_gallery
 
   field :name, type: String
   field :content, type: String
@@ -25,6 +27,10 @@ class Post
       created_at.localtime.strftime("%A, %B %-d, %Y at %l:%M %p")
   end
 
+
+  def create_gallery
+    self.gallery.create(keyword_search_term: self.select_random_index, gallery_array: self.brooklyn_gallery_request)
+  end
 
   # def skyttle_sentiment_analysis
   #   # base_uri = "http://api.skyttle.com/v0.1/"

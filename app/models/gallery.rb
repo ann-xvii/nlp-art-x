@@ -2,18 +2,18 @@ class Gallery
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  before_save :perform_gallery_search
+  # before_save :perform_gallery_search
 
   
-  field :keyword_search, type: String
-  field :museum, type: String
-  field :gallery_name, type: String
+  field :keyword_search_term, type: String
+  
+  field :gallery_array, type: Array
   
 
   
   belongs_to :post
-  embeds_many :artobjects
-  accepts_nested_attributes_for :artobject
+  # embeds_many :artobjects
+  # accepts_nested_attributes_for :artobject
 
 
 

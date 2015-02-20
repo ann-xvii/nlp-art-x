@@ -10,3 +10,8 @@ $ ->
 	$('#gallery-favorite-button').click (event) ->
 		console.log("I've been clicked!!!")
 		
+	$('#posts').imagesLoaded ->
+    $('#posts').masonry
+      itemSelector: '.box' 
+      columnWidth: 1
+      isFitWidth: true

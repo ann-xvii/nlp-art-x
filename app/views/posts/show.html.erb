@@ -36,69 +36,24 @@ Explore other keywords:
 <span ng-click="main.sentiment_analysis()" style="padding: 3px;">Click to analyze the text!<span class="glyphicon glyphicon-play" style="font-size: 20px"></span></span>
 
 
-<%= form_for [@post, @gallery] do |f| %>
 
-<!-- population artobject fields -->
-	<%= f.fields_for :artobject_attributes do |artobject_fields| %>
-		<div>
-			<%= artobject_fields.label :title %>
-			<%= artobject_fields.text_field :title %>
-		</div>
-		<div>
-			<%= artobject_fields.label :description %>
-			<%= artobject_fields.text_field :description %>
-		</div>
-		<div>
-			<%= gallery_fields.label :images_array %>
-			<%= gallery_fields.text_field :images_array %>
-		</div>
-		<div>
-			<%= gallery_fields.label :medium %>
-			<%= gallery_fields.text_field :medium %>
-		</div>
-		<div>
-			<%= gallery_fields.label :artist %>
-			<%= gallery_fields.text_field :artist %>
-		</div>
-		<div>
-			<%= gallery_fields.label :nationality %>
-			<%= gallery_fields.text_field :nationality %>
-		</div>
-	<% end %>
-	<!-- end populate artobject fields  -->
-	<div>
-		<%= f.label :gallery_name, "Enter a gallery name:" %>
-		<%= f.text_field :gallery_name %>
-	</div>
-	<div>
-		<%= f.label :museum, "Enter a gallery name:" %>
-		<%= f.text_field :museum %>
-	</div>
-	<div>
-		<%= f.label :keyword_search, "Enter a gallery name:" %>
-		<%= f.text_field :keyword_search %>
-	</div>
-	<%= f.submit "Add your gallery!" %>
-<% end %>
+<strong>Rijksmuseum search</strong>
+
+<%= render 'gallery' %>
 
 
-
-
-
-
-
-<% if @post.rijksmuseum_request %>
-<p>
+<%# if @post.rijksmuseum_request %>
+<!-- <p>
 	<strong>Rijksmuseum search</strong>
 
-		<% @post.rijksmuseum_request.each do |item| %>
-			<%= item[:title] %><br/>
-			<%= image_tag(item[:image], class: "dutchmen img-responsive") %>
-		<% end %>	
-</p>
-<% end %>
-
-
+		<%# @post.rijksmuseum_request.each do |item| %>
+			<%#= item[:title] %><br/>
+			<%#= image_tag(item[:image], class: "dutchmen img-responsive") %>
+		<%# end %>	
+</p> -->
+<%# end %>
+<p>array of links</p>
+<!-- {{ main.trustLink }} -->
 
 
 <div>
