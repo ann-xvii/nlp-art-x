@@ -1,6 +1,6 @@
 ## Welcome to NLP-Curator!
-### NLP-Curator is an art discovery tool based on keywords from text that you enter.
-### Special thanks to the Cooper Hewitt Design Museum, the Smithsonian, the Rijksmuseum and the Brooklyn Museum for their extensive, well-documented APIs.
+NLP-Curator is an art discovery tool based on keywords from text that you enter.
+Special thanks to the Cooper Hewitt Design Museum, the Smithsonian, the Rijksmuseum and the Brooklyn Museum for their extensive, well-documented APIs that were a pleasure to use.
 
 
 
