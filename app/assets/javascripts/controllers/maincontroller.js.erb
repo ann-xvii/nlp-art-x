@@ -23,14 +23,14 @@
 		self.id = ipCookie('id');
 
 		self.addFavorite = function () {
-			console.log("I been clicked yeaheeee yayeee!");
+			// console.log("I been clicked yeaheeee yayeee!");
 		}
 		
 		self.sentiment_analysis = function(){
-			console.log("Clicked, sentiment_analysis!!! w00t!");
+			// console.log("Clicked, sentiment_analysis!!! w00t!");
 
 			self.controllertest2 = $('#post_keywords_array').text();
-			console.log(self.controllertest2);
+			// console.log(self.controllertest2);
 			var word_soup = [];
 			$http({
 			    url: "https://sentinelprojects-skyttle20.p.mashape.com/",
@@ -39,7 +39,7 @@
 			    data: $.param({"text": self.controllertest2 , "annotate": "1", "keywords": "1", "lang": "en", "sentiment": "1" })
 			  })
 			.success(function(data, status, header, config){
-				console.log(data);
+				// console.log(data);
 				self.results = data;
 				self.sentiment_scores = self.results["docs"][0]["sentiment_scores"];
 				// console.log(self.sentiment_scores);
@@ -47,7 +47,7 @@
 				// console.log("neg ", self.sentiment_scores["neg"]);
 				// console.log("neu ", self.sentiment_scores["neu"]);
 				self.sentiment_obj = self.results["docs"][0]["sentiment"];
-				console.log(self.sentiment_obj);
+				// console.log(self.sentiment_obj);
 			});
 		}
 
@@ -65,7 +65,7 @@
 		        .get(API_SEARCH)
 		        .success(function(data, status, header, config){
 		            self.items = data;
-		            console.log(self.items);
+		            // console.log(self.items);
 		            //console.log(self.items.objects);
 		            self.search_artinput = self.artinput;
 		            self.artinput = null;
