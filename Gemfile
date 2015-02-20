@@ -16,7 +16,6 @@ gem 'bootstrap-sass', '~> 3.3.3'
 gem 'angularjs-bootstrap-rails'
 gem 'angular-ui-bootstrap-rails'
 gem 'sass-rails', '~> 5.0'
-
 gem 'masonry-rails'
 gem "d3-rails"
 
