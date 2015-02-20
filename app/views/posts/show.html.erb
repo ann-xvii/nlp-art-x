@@ -95,8 +95,11 @@ var h = 100;
 var r = 50;
 var color = d3.scale.category20c();
 
-var data = [{"label": "Positive", "value": {{ main.sentiment_scores["pos"] }}},
-{"label": "Negative", "value": {{ main.sentiment_scores["neg"] }}}, {"label": "Neutral", "value": {{ main.sentiment_scores["neu"] }}}];
+var data = [
+				{"label": "Positive", "value": main.sentiment_scores["pos"] },
+				{"label": "Negative", "value": main.sentiment_scores["neg"] }, 
+				{"label": "Neutral", "value": {{ main.sentiment_scores["neu"] }
+			];
 
 var vis = d3.select('#chart').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 var pie = d3.layout.pie().value(function(d){return d.value;});
