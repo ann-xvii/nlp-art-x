@@ -16,14 +16,18 @@ gem 'bootstrap-sass', '~> 3.3.3'
 gem 'angularjs-bootstrap-rails'
 gem 'angular-ui-bootstrap-rails'
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap_form'
+
 gem 'masonry-rails'
+gem "d3-rails"
 
 
 # EXTERNAL
 gem 'httparty'
 gem 'figaro'
 gem 'unirest', '~> 1.1.2'
+gem 'elasticsearch'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 
 # ANGULAR

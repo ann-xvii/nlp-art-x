@@ -8,6 +8,7 @@ class Post
   field :name, type: String
   field :content, type: String
   field :keywords, type: Array
+  field :sentiment, type: Object
   
   
   belongs_to :user

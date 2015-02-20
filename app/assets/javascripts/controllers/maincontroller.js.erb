@@ -15,6 +15,8 @@
 		var self = this;
 		
 		self.controllertest = "test yay";
+		self.controllertest2;
+		self.sentiment_scores;
 		// Create PostFactory as an object
 		self.Post = new PostsFactory();
 		self.id = ipCookie('id');
@@ -25,21 +27,32 @@
 		
 		self.sentiment_analysis = function(){
 			console.log("Clicked, sentiment_analysis!!! w00t!");
+
+			self.controllertest2 = $('#post_keywords_array').text();
+			console.log(self.controllertest2);
 			var word_soup = [];
 			$http({
 			    url: "https://sentinelprojects-skyttle20.p.mashape.com/",
 			    method: "POST",
 			    headers: { "X-Mashape-Key": "<%= ENV['MASHAPE_KEY'] %>", "Content-Type": "application/x-www-form-urlencoded", "Accept": "application/json"},
-			    data: $.param({"text": "The main Neoclassical movement coincided with the 18th century Age of Enlightenment, and continued into the early 19th century, latterly competing with Romanticism" , "annotate": "1", "keywords": "1", "lang": "en", "sentiment": "1" })
+			    data: $.param({"text": self.controllertest2 , "annotate": "1", "keywords": "1", "lang": "en", "sentiment": "1" })
 			  })
 			.success(function(data, status, header, config){
 				console.log(data);
+				self.results = data;
+				self.sentiment_scores = self.results["docs"][0]["sentiment_scores"];
+				console.log(self.sentiment_scores);
+				console.log("pos ", self.sentiment_scores["pos"]);
+				console.log("neg ", self.sentiment_scores["neg"]);
+				console.log("neu ", self.sentiment_scores["neu"]);
 			});
 		}
 
 		// defined in model as search input
 		self.artinput;
 		
+
+		self.artSearchResults = [];
 
 		self.searchArt = function (){
 
@@ -51,12 +64,21 @@
 		            self.items = data;
 		            console.log(self.items);
 		            //console.log(self.items.objects);
+		            self.search_artinput = self.artinput;
 		            self.artinput = null;
 
 		            //self.trustLink = $sce.trustAsResourceUrl(self.items.objects.url);
 		            self.trustLink = $sce.trustAsResourceUrl(self.items.objects.url);
+		            // self.artSearchResults = data;
 
-		            //console.log(self.items.objects);
+		            // console.log(self.artSearchResults.objects);
+		            // console.log(self.items.objects);
+
+		            for (var i = 0; i < self.items.objects.length; i++){
+		            	self.artSearchResults.push(self.items.objects[i]);
+
+		            }
+		            return self.artSearchResults;
 		        });
 		}
 

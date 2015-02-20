@@ -12,13 +12,13 @@
             var self = this;
 
             // Use ngResource for Posts
-            var PostResource = new Resources('posts');
+            // var PostResource = new Resources('posts');
 
             // Get all posts
-            self.posts = PostResource.query();
+            // self.posts = PostResource.query();
 
             // Create a post object
-            self.post = new PostResource();
+            // self.post = new PostResource();
 
             self.create = function(link, title){
 

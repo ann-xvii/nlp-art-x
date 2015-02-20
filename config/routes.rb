@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   resources :posts
   resources :users
 
+  get '/api/posts' => 'posts#index'
+
+  get '/results' => 'posts#search', as: :search_results
+
   
 
   # The priority is based upon order of creation: first created -> highest priority.

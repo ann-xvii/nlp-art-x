@@ -5,5 +5,5 @@
 <% @user.posts.each do |post| %>
 <p><strong><%= post.name %></strong></p>
 <p><%= link_to post.content, post_path(post) %></p>
-<p><%= image_tag(post.rijksmuseum_request[0][:image], class: "img-responsive") %></p>
+<p><%#= image_tag(post.rijksmuseum_request[0][:image], class: "img-responsive") %></p>
 <% end %>

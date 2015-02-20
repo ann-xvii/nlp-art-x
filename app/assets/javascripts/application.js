@@ -23,6 +23,7 @@
 //= require angular-rails-templates
 //= require angular-sanitize
 //= require bootstrap-sprockets
+//= require d3
 //= require "app"
 //= require_tree .
 

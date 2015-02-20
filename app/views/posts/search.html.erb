@@ -1,0 +1,10 @@
+
+<h2>You searched: {{ main.search_artinput }}</h2>
+
+<div>
+	<div ng-repeat="item in main.artSearchResults">
+		{{ item.title }}<br/>
+		<img ng-src="{{ item.images[0].b.url }}">
+	</div>
+</div>
+<!-- {{ main.artSearchResults }} -->
