@@ -52,6 +52,12 @@ class UsersController < ApplicationController
 			redirect_to user_path
 		end
 
+
+		# def like_a_gallery
+		# 	@user = User.find(params[:user][:id])
+		# 	@gallery = Gallery.new
+		# end
+
 		def destroy
 			@user = User.find(params[:id])
 			if @user.destroy

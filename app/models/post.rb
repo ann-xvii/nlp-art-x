@@ -1,3 +1,4 @@
+
 class Post
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -8,7 +9,7 @@ class Post
   
   
   belongs_to :user
-  has_many :galleries
+  has_one :gallery
 
   validates :name, presence: true, length: {minimum: 2}
   validates :content, presence: true, length: {minimum: 100}
@@ -48,7 +49,7 @@ class Post
         "annotate" => 0,
         "keywords" => 1,
         "lang" => "en",
-        "sentiment" => 0,
+        "sentiment" => 1,
         "text" => content
       }
      

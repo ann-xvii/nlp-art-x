@@ -7,7 +7,7 @@ class User
   field :email, type: String
   field :password_digest, type: String
   field :admin, type: Boolean, default: false
-  field :favorite_collections, type: Object, default: {key: "", value: []}
+  
 
   attr_reader :password
 
@@ -15,8 +15,9 @@ class User
   has_secure_password
 
   # set up relationships
-  has_many :posts, dependent: :destroy
-  has_many :galleries, dependent: :destroy
+  has_many :posts, dependent: :nullify
+
+  has_many :galleries, dependent: :nullify
 
 
   # validate email presence, format and length
@@ -24,6 +25,8 @@ class User
   validates :password, presence: true, length: { in: 6..20 }, confirmation: true, on: :create
   # Checks name's presence, length: 50
   validates :name, presence: true, length: {maximum: 50}
+
+ 
   
 
   def password=(unencrypted_password)

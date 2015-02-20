@@ -1,7 +1,7 @@
 class Artobject
   include Mongoid::Document
 
-  field :longtitle, type: String
+  field :title, type: String
   field :description, type: String
   field :images_array, type: Array
   field :museum_object_id, type: String
