@@ -1,33 +1,37 @@
+<div class="posts-index">
+
 <!-- <p id="notice"><%#= notice %></p> -->
 <br>
 <br>
-<br>
-<p>
-  <strong>Name:</strong>
+<h2 style="text-align: center;">
+  <!-- <strong>Title:</strong> -->
   <%= @post.name %>
-</p>
+</h2>
+<br>
+<div class="row">
+<div class="col"></div>
+	<div>
+	<p>
+	  <strong>Content:</strong>
+	  <span id="post_keywords_array"><%= @post.content %></span> 
+	</p>
+	<p>
+		<strong>Keyword:</strong>
+		<span><%= @post.keywords %></span>
+	</p>
 
-<p>
-  <strong>Content:</strong>
-  <span id="post_keywords_array"><%= @post.content %></span> 
-</p>
-<p>
-	<strong>Keyword:</strong>
-	<span><%= @post.keywords %></span>
-</p>
-
-<!-- <p>
-	<strong>Cooper Hewitt Request:</strong>
-	<%#= @post.cooper_hewitt_request %>
-</p> -->
-Explore other keywords:
-<select>
-	<% @post.keywords.each do |post| %>
-		<option value="<%= post %>"><%= post %></option>
-	<% end %>
-</select>
-
-
+	<!-- <p>
+		<strong>Cooper Hewitt Request:</strong>
+		<%#= @post.cooper_hewitt_request %>
+	</p> -->
+	Explore other keywords:
+	<select>
+		<% @post.keywords.each do |post| %>
+			<option value="<%= post %>"><%= post %></option>
+		<% end %>
+	</select>
+	</div>
+</div>
 <p>
 	<strong id="selector-id">Search Term</strong>
 	<%= @post.select_random_index %> | <span ng-click="main.addFavorite()" class="glyphicon glyphicon-heart" style="font-size: 20px"></span>
@@ -120,3 +124,4 @@ arcs.append("svg:text").attr("transform", function(d){
     return data[i].label;}
 		);
 </script>
+</div>
