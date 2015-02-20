@@ -39,7 +39,7 @@
 
 <span ng-click="main.sentiment_analysis()" style="padding: 3px;">Click to analyze the text!<br/><span class="glyphicon glyphicon-play" style="font-size: 20px"></span></span>
 
-<div ng-show="main.sentiment_scores['pos']">
+<div ng-show="main.sentiment_scores">
 	<p style="font-size: 20px; color: pink;">Positive: {{ main.sentiment_scores["pos"] }}% | </p>
 	<p style="font-size: 20px; color: #ccc;">Neutral: {{ main.sentiment_scores["neu"] }}% |</p>
 	<p style="font-size: 20px; color: blue;">Negative: {{ main.sentiment_scores["neg"] }}% |</p>
@@ -90,41 +90,41 @@
 <%= link_to 'Back', posts_path %>
 
 <script type="text/javascript">
-	var w = 100;
-var h = 100;
-var r = 50;
-var color = d3.scale.category20c();
+// 	var w = 100;
+// var h = 100;
+// var r = 50;
+// var color = d3.scale.category20c();
 
-var data = [
-				{"label": "Positive", "value": main.sentiment_scores["pos"] },
-				{"label": "Negative", "value": main.sentiment_scores["neg"] }, 
-				{"label": "Neutral", "value": {{ main.sentiment_scores["neu"] }
-			];
+// var data = [
+// 				{"label": "Positive", "value": main.sentiment_scores["pos"] },
+// 				{"label": "Negative", "value": main.sentiment_scores["neg"] }, 
+// 				{"label": "Neutral", "value": {{ main.sentiment_scores["neu"] }
+// 			];
 
-var vis = d3.select('#chart').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
-var pie = d3.layout.pie().value(function(d){return d.value;});
+// var vis = d3.select('#chart').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+// var pie = d3.layout.pie().value(function(d){return d.value;});
 
-// declare an arc generator function
-var arc = d3.svg.arc().outerRadius(r);
+// // declare an arc generator function
+// var arc = d3.svg.arc().outerRadius(r);
 
-// select paths, use arc generator to draw
-var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
-arcs.append("svg:path")
-    .attr("fill", function(d, i){
-        return color(i);
-    })
-    .attr("d", function (d) {
-        // log the result of the arc generator to show how cool it is :)
-        console.log(arc(d));
-        return arc(d);
-    });
+// // select paths, use arc generator to draw
+// var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+// arcs.append("svg:path")
+//     .attr("fill", function(d, i){
+//         return color(i);
+//     })
+//     .attr("d", function (d) {
+//         // log the result of the arc generator to show how cool it is :)
+//         console.log(arc(d));
+//         return arc(d);
+//     });
 
-// add the text
-arcs.append("svg:text").attr("transform", function(d){
-			d.innerRadius = 0;
-			d.outerRadius = r;
-    return "translate(" + arc.centroid(d) + ")";}).attr("text-anchor", "middle").text( function(d, i) {
-    return data[i].label;}
-		);
+// // add the text
+// arcs.append("svg:text").attr("transform", function(d){
+// 			d.innerRadius = 0;
+// 			d.outerRadius = r;
+//     return "translate(" + arc.centroid(d) + ")";}).attr("text-anchor", "middle").text( function(d, i) {
+//     return data[i].label;}
+// 		);
 </script>
 </div>
