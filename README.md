@@ -56,7 +56,7 @@ NLP-Curator uses RSpec, Factory Girl and Capybara for testing models, controller
 
 * To run a specific set of tests, simply include the file path. Here is an example for the post_spec.rb:
 	```
-	bundle exec rspec spec/controllers/post_spec.rb
+	bundle exec rspec spec/models/post_spec.rb
 	```
 
 ### Thanks for visiting NLP-Curator!
