@@ -219,9 +219,6 @@ class Post
 
     rijksmuseum_response_count = response_json["count"]
 
-    
-
-
     rijksmuseum_array = response_json["artObjects"]
 
     array_of_container_objects = []
