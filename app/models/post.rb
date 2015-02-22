@@ -249,7 +249,7 @@ class Post
 
 
   def cooper_hewitt_random_artwork_generator
-    cooperhewitt_key = ENV["API_TOKEN"]
+    cooperhewitt_key = ENV["COOPER_HEWITT_TOKEN"]
     # response = HTTParty.get("https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.objects.getRandom&access_token=#{cooperhewitt_key}&has_image=1")
     response = HTTParty.get("https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.videos.getRandom&access_token=#{cooperhewitt_key}")
     # video_url = response.video.formats.mp4["720"]
@@ -263,11 +263,74 @@ class Post
   # end
 
   def cooper_hewitt_request
-    cooperhewitt_key = ENV["API_TOKEN"]
+    cooperhewitt_key = ENV["COOPER_HEWITT_TOKEN"]
     escaped_search_term = self.escaped_search_term
     response = HTTParty.get("https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.search.collection&access_token=#{cooperhewitt_key}&query=#{escaped_search_term}&has_images=1&page=1&per_page=12")
 
     response_json = JSON.parse(response.body)
+
+    cooper_hewitt_array = response_json["objects"]
+
+    array_of_design_pieces = []
+    array_of_damaged_pieces = []
+
+    cooper_hewitt_array.each do |item|
+      container_array = {
+        title: "",
+        image: "",
+        artist: [],
+        id: "",
+        url: "",
+        description: ""
+      }
+
+
+      if item["title"].nil? || item["images"].nil? || item["description"].nil?
+        container_array[:title] = "Not found"
+        container_array[:image] = "Not found"
+        container_array[:artist] = "Not found"
+        container_array[:id] = "Not found"
+        container_array[:url] = "Not found"
+
+        array_of_damaged_pieces.push(container_array)
+      end
+
+      # populate the title
+      container_array[:title] = item["title"]
+      # populate the images
+
+      if item["images"]
+        item["images"].each do |picture|
+          container_array[:image] = picture["b"]["url"]
+        end
+      else
+        container_array[:image] = "Not found"
+      end
+
+      # container_array[:image] = item["images"][0]["b"]["url"]
+      # populate the artists
+      if item["participants"]
+        item["participants"].each do |participant|
+          container_array[:artist] << participant["person_name"]
+        end
+      else
+        container_array[:artist] = "Not found"
+      end
+
+      # container_array[:artist] = item["participants"]
+      container_array[:id] = item["id"]
+      container_array[:url] = item["url"]
+      container_array[:description] = item["description"]
+
+      if item["images"][0]["b"]
+        array_of_design_pieces.push(container_array)
+      end
+
+      array_of_design_pieces
+
+    end
+
+    return array_of_design_pieces
   end
 
 

@@ -59,7 +59,7 @@
 
 		self.searchArt = function (){
 
-		    var API_SEARCH = "https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.search.collection&access_token=" + '<%= ENV['API_TOKEN'] %>' + "&query=" + self.artinput + "&has_images=1&page=1&per_page=10";
+		    var API_SEARCH = "https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.search.collection&access_token=" + '<%= ENV['COOPER_HEWITT_TOKEN'] %>' + "&query=" + self.artinput + "&has_images=1&page=1&per_page=10";
 		    console.log(API_SEARCH);
 		    $http
 		        .get(API_SEARCH)
