@@ -286,6 +286,12 @@ class Post
     array_of_container_objects = []
     array_of_damaged_pieces = []
 
+    # rijksmuseum array is array of art Objects from rijksmuseum collection
+    # create a container_array object for each object and extract title, image, artist, id, and url
+    # if the correct fields are found (e.g. if there is indeed an image, for example), push the container_array object to the 
+    # array_of_container_objects array
+    # this handles the case where there are no images, or the data is invalid or incomplete
+    # thus allowing the system to fail more gently
     rijksmuseum_array.each do |item|
       container_array = {
       title: "",
@@ -316,6 +322,8 @@ class Post
       container_array[:id] = item["id"]
       container_array[:url] = item["links"]["web"]
 
+
+      # only push container_array objects that have webImages!! 
       if item["webImage"]
         array_of_container_objects.push(container_array)
       end
