@@ -174,7 +174,12 @@ class Post
         
       end
         container_array[:title] = item["title"]
-        container_array[:image] = item["images"]["0"]["uri"]
+
+        if item["images"]
+          container_array[:image] = item["images"]["0"]["uri"]
+        else
+          container_array[:image] = "Not found"
+        end
 
         # check for nil artists field
         if item["artists"].nil? 
@@ -322,7 +327,7 @@ class Post
       container_array[:url] = item["url"]
       container_array[:description] = item["description"]
 
-      if item["images"][0]["b"]
+      if item["images"]
         array_of_design_pieces.push(container_array)
       end
 
