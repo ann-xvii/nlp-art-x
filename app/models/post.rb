@@ -316,7 +316,9 @@ class Post
       container_array[:id] = item["id"]
       container_array[:url] = item["links"]["web"]
 
-      array_of_container_objects.push(container_array)
+      if item["webImage"]
+        array_of_container_objects.push(container_array)
+      end
     end
 
     # container_array
