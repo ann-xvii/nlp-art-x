@@ -1,3 +1,4 @@
+<% if @post.rijksmuseum_request %>
 <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix">
   <% @post.rijksmuseum_request.each do |item| %>
    
@@ -8,7 +9,9 @@
 
   <% end %>
 </div>
-
+<% else %>
+  <%= @post.cooper_hewitt_random_artwork_generator %>
+<% end %>
 
 
 <!-- <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"> -->

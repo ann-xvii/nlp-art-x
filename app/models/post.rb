@@ -306,7 +306,12 @@ class Post
       
     end
       container_array[:title] = item["longTitle"]
-      container_array[:image] = item["webImage"]["url"]
+
+      if item["webImage"].nil?
+        container_array[:image] = "Not found"
+      else
+        container_array[:image] = item["webImage"]["url"]
+      end
       container_array[:artist] = item["principalOrFirstMaker"]
       container_array[:id] = item["id"]
       container_array[:url] = item["links"]["web"]
