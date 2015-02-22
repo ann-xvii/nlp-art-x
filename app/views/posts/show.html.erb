@@ -76,14 +76,18 @@
 <!-- {{ main.trustLink }} -->
 
 
-<div>
+<!-- <div>
 	<p>
 		<strong>Brooklyn Museum Search</strong>
 	</p>
-	<% @post.brooklyn_gallery_request.each do |picture| %>
-		<%= image_tag(picture) %>
-	<% end %>
-</div>
+	<%# @post.brooklyn_gallery_request.each do |picture| %>
+		<%#= image_tag(picture) %>
+	<%# end %>
+</div> -->
+
+<strong>Brooklyn Museum Search</strong>
+
+<%= render 'brooklyn_gallery' %>
 
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
