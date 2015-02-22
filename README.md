@@ -18,10 +18,10 @@ NLP Curator runs on the following technologies:
 
 
 ### APIs used in NLP Curator
-[Skyttle API for text analytics](http://www.skyttle.com/)
-[Cooper Hewitt Design Museum API, NYC](https://collection.cooperhewitt.org/api/)
-[Rijksmuseum API, Amsterdam](https://www.rijksmuseum.nl/en/api)
-[Brooklyn Museum API, NY](http://www.brooklynmuseum.org/opencollection/api/)
+* [Skyttle API for text analytics](http://www.skyttle.com/)
+* [Cooper Hewitt Design Museum API, NYC](https://collection.cooperhewitt.org/api/)
+* [Rijksmuseum API, Amsterdam](https://www.rijksmuseum.nl/en/api)
+* [Brooklyn Museum API, NY](http://www.brooklynmuseum.org/opencollection/api/)
 
 
 ### Ruby Gems installed in NLP Curator
