@@ -1,0 +1,11 @@
+<div id="masonry-container" class="transitions-enabled infinite-scroll clearfix">
+	<% @post.brooklyn_gallery_request.each do |item| %>
+
+		<div class="box col6">
+			<%= link_to image_tag(item[:image]), item[:url] %>
+			<%= item[:title] %>
+			<%= item[:description] %>
+		</div>
+
+	<% end %> 
+</div>

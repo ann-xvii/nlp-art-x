@@ -130,7 +130,6 @@ class Post
     # escaped_search_term = "rome"
     response = HTTParty.get("http://www.brooklynmuseum.org/opencollection/api/?method=collection.search&version=1&api_key=#{brooklyn_key}&keyword=#{escaped_search_term}&format=json&include_html_style_block=true")
     # binding.pry
-
     response_json = JSON.parse(response.body)
     #HANDLE CASE OF 0 RESULTS
 
@@ -141,10 +140,64 @@ class Post
     # end
 
     # EXTRACT ARTWORK URI AND PUSH TO CONTAINER ARRAY
-    container_of_art = []
-    array_of_artwork = response_json["response"]["resultset"]["items"].each do |x|
-      container_of_art << x["images"]["0"]["uri"]
-    end
+    # container_of_art = []
+    # array_of_artwork = response_json["response"]["resultset"]["items"].each do |x|
+    #   container_of_art << x["images"]["0"]["uri"]
+    # end
+
+
+    # create an array of response objects
+    array_of_art_pieces = []
+    array_of_damaged_pieces = []
+    brooklyn_museum_array = response_json["response"]["resultset"]["items"]
+
+
+    # initialize an empty container object, populate it with the search results, and push it to the array of art pieces array
+    brooklyn_museum_array.each do |item|
+      container_array = {
+        title: "",
+        image: "",
+        artist: "",
+        id: "",
+        url: "",
+        description: ""
+      }
+
+      if item["images"].nil? || item["artists"].nil? || item["uri"].nil? || item["description"].nil?
+        container_array[:title] = "Not found"
+        container_array[:image] = "Not found"
+        container_array[:artist] = "Not found"
+        container_array[:id] = "Not found"
+        container_array[:url] = "Not found"
+        container_array[:description] = "Not found"
+        array_of_damaged_pieces.push(container_array)
+        
+      end
+        container_array[:title] = item["title"]
+        container_array[:image] = item["images"]["0"]["uri"]
+
+        # check for nil artists field
+        if item["artists"].nil? 
+          container_array[:artist] = "Unknown"
+        else
+          container_array[:artist] = item["artists"][0]["name"]
+        end
+
+        container_array[:id] = item["id"]
+        container_array[:url] = item["uri"]
+        container_array[:description] = item["description"]
+
+
+        # if there are no images, don't push to array of art pieces, push to array of damaged pieces
+        unless item["images"].nil?
+          array_of_art_pieces.push(container_array)
+        else
+          array_of_damaged_pieces.push(container_array)
+        end
+      end
+
+      return array_of_art_pieces
+
 
     # response_json["response"]["resultset"]["items"][0]["images"]["0"]["uri"]
     
@@ -175,7 +228,7 @@ class Post
     #   # otherwise return container of art (array)
     #   container_of_art
     # end
-    container_of_art
+    # container_of_art
 
 
   end
@@ -221,6 +274,7 @@ class Post
     rijksmuseum_array = response_json["artObjects"]
 
     array_of_container_objects = []
+    array_of_damaged_pieces = []
 
     rijksmuseum_array.each do |item|
       container_array = {
@@ -238,8 +292,8 @@ class Post
       container_array[:artist] = "Not found"
       container_array[:id] = "Not found"
       container_array[:url] = "Not found"
-      array_of_container_objects.push(container_array)
-      return array_of_container_objects
+      array_of_damaged_pieces.push(container_array)
+      
     end
       container_array[:title] = item["longTitle"]
       container_array[:image] = item["webImage"]["url"]
