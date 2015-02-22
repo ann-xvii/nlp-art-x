@@ -1,4 +1,3 @@
-
 class Post
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -228,7 +227,8 @@ class Post
       title: "",
       image: "",
       artist: "",
-      id: ""
+      id: "",
+      url: ""
     }
 
     if item["longTitle"].nil? || item["webImage"].nil? || item["principalOrFirstMaker"].nil?
@@ -237,6 +237,7 @@ class Post
       container_array[:image] = "Not found"
       container_array[:artist] = "Not found"
       container_array[:id] = "Not found"
+      container_array[:url] = "Not found"
       array_of_container_objects.push(container_array)
       return array_of_container_objects
     end
@@ -244,6 +245,7 @@ class Post
       container_array[:image] = item["webImage"]["url"]
       container_array[:artist] = item["principalOrFirstMaker"]
       container_array[:id] = item["id"]
+      container_array[:url] = item["links"]["web"]
 
       array_of_container_objects.push(container_array)
     end

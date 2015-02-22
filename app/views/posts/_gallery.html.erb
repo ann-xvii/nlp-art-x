@@ -2,7 +2,7 @@
   <% @post.rijksmuseum_request.each do |item| %>
    
     <div class="box col6">
-      <%= link_to image_tag(item[:image]), "http://example.com" %><br/>
+      <%= link_to image_tag(item[:image]), item[:url] %><br/>
       <%= item[:title] %>
     </div>
 
