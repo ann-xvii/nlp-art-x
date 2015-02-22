@@ -278,7 +278,7 @@ class Post
       container_array = {
         title: "",
         image: "",
-        artist: [],
+        artist: "",
         id: "",
         url: "",
         description: ""
@@ -311,7 +311,7 @@ class Post
       # populate the artists
       if item["participants"]
         item["participants"].each do |participant|
-          container_array[:artist] << participant["person_name"]
+          container_array[:artist] = participant["person_name"]
         end
       else
         container_array[:artist] = "Not found"
