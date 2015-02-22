@@ -330,7 +330,7 @@ class Post
 
     end
 
-    return array_of_design_pieces
+    array_of_design_pieces
   end
 
 
