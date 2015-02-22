@@ -1,7 +1,5 @@
 ## Welcome to NLP-Curator!
-NLP Curator is an art discovery tool based on keywords from text that you enter.
-Special thanks to the Cooper Hewitt Design Museum, the Smithsonian, the Rijksmuseum and the Brooklyn Museum for their extensive, well-documented APIs that were a pleasure to use.
-
+NLP Curator is an art discovery tool. Write a post, view keywords and see phrase-level and document-level sentiment analysis, and view artwork curated by the text you've written. 
 
 
 ### Software used in NLP Curator
@@ -13,12 +11,17 @@ NLP Curator runs on the following technologies:
 * Mongoid 4.0.0
 * Bootstrap 3.3.2
 * AngularJS
+* D3.js
 * Circle CI for continuous integration
 * Heroku for deployment
 * RSpec, Factory Girl, and Capybara for testing
 
 
 ### APIs used in NLP Curator
+[Skyttle API for text analytics][http://www.skyttle.com/]
+[Cooper Hewitt Design Museum API, NYC][https://collection.cooperhewitt.org/api/]
+[Rijksmuseum API, Amsterdam][https://www.rijksmuseum.nl/en/api]
+[Brooklyn Museum API, NY][http://www.brooklynmuseum.org/opencollection/api/]
 
 
 ### Ruby Gems installed in NLP Curator
