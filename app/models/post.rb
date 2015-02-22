@@ -184,8 +184,18 @@ class Post
         end
 
         container_array[:id] = item["id"]
-        container_array[:url] = item["uri"]
-        container_array[:description] = item["description"]
+
+        if item["uri"].nil?
+          container_array[:url] = "Link unavailable"
+        else
+          container_array[:url] = item["uri"]
+        end
+
+        if item["description"].nil?
+          container_array[:description] = "No description available"
+        else
+          container_array[:description] = item["description"]
+        end
 
 
         # if there are no images, don't push to array of art pieces, push to array of damaged pieces
