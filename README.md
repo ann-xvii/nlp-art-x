@@ -1,5 +1,6 @@
 ## Welcome to NLP-Curator!
-NLP Curator is an art discovery tool. Write a post, view keywords and see phrase-level and document-level sentiment analysis, and view artwork curated by the text you've written. 
+NLP Curator is an art discovery tool. Write a post, view keywords and see phrase-level and document-level sentiment analysis, and view artwork curated by the text you've written. This site was developed as my 4th Project in the General Assembly WDI program.  
+
 * [NLP Curator](https://nlp-curator.herokuapp.com/)
 
 
