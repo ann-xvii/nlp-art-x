@@ -17,7 +17,7 @@ gem 'angularjs-bootstrap-rails'
 gem 'angular-ui-bootstrap-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'masonry-rails'
-gem "d3-rails"
+gem 'd3-rails'
 
 
 # EXTERNAL

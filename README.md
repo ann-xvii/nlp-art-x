@@ -9,7 +9,7 @@ NLP Curator runs on the following technologies:
 
 * Rails 4.1.7
 * Ruby 2.1.3
-* Mongoid 4.0.0
+* MongoDB
 * Bootstrap 3.3.2
 * AngularJS
 * D3.js
@@ -29,17 +29,20 @@ NLP Curator runs on the following technologies:
 
 NLP Curator uses the following gems:
 
-* mongodb (database)
-* thin (production server)
-* better_errors (streamlined development)
-* rails_12factor (heroku deployment)
+* mongoid (database)
 * bootstrap-sass
+* masonry-rails
+* httparty
+* unirest
+* figaro
+* better_errors (streamlined development)
 * rspec-rails (testing)
 * factory_girl_rails (testing)
 * capybara (testing)
-* figaro
 * shoulda-matchers
+* thin (production server)
 * rspec_junit_formatter
+* rails_12factor (heroku deployment)
 
 Run the following commands to use these gems
 * To install to your machine, run
