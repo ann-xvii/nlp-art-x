@@ -30,11 +30,11 @@ NLP Curator runs on the following technologies:
 NLP Curator uses the following gems:
 
 * mongoid (database)
-* bootstrap-sass
-* masonry-rails
-* httparty
-* unirest
-* figaro
+* bootstrap-sass (styling and layout)
+* masonry-rails (layout of galleries)
+* httparty (external access)
+* unirest (external access)
+* figaro (easy configuration)
 * better_errors (streamlined development)
 * rspec-rails (testing)
 * factory_girl_rails (testing)
