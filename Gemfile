@@ -18,6 +18,7 @@ gem 'angular-ui-bootstrap-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'masonry-rails'
 gem 'd3-rails'
+gem 'will_paginate', '~> 3.0.7'
 
 
 # EXTERNAL
