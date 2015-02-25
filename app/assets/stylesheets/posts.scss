@@ -61,12 +61,13 @@
 	}
 
 	.post .admin {
-		display: none;
+		display: none !important;
 	}
 
-	.post.hover .admin {
-		display: inline;
-	}
+	// remove edit delete display until admin field added to user models
+	// .post.hover .admin {
+	// 	display: inline;
+	// }
 
 	img.dutchmen {
 		max-width: 400px;
