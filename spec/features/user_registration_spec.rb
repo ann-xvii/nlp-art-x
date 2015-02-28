@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Signing up for NLP Curator' do
 	it "allows a user to sign up for nlp curator and creates an object in the database" do
-		user_count = User.count
-		expect(User.count).to eq(user_count)
+		
+		expect(User.count).to eq(0)
 		visit "/"
 		click_link "Sign Up"
 
@@ -15,6 +15,6 @@ describe 'Signing up for NLP Curator' do
 		fill_in "Confirm Password", with: "hello1234"
 
 		click_button "Join Curator!"
-		expect(User.count).to eq(user_count)
+		expect(User.count).to eq(1)
 	end
 end
