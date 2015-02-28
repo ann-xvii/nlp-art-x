@@ -64,7 +64,6 @@ end
 
 # DEPLOYMENT
 gem 'rspec_junit_formatter', :github => 'circleci/rspec_junit_formatter', group: :test
-# gem 'thin', group: :production
-gem 'puma', '~> 2.11.1'
+gem 'thin', group: :production
 gem 'rails_serve_static_assets'
 gem 'rails_12factor', group: :production

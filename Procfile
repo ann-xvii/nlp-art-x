@@ -1,2 +1,2 @@
 # Procfile
-web: bundle exec puma -C config/puma.rb
+bundle exec thin start
