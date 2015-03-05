@@ -62,8 +62,6 @@ class Post
      
       post_words = response.body
 
-      post_words["docs"][0]["terms"]
-       # post_words["docs"][0]["terms"][1]["term"]
       word_array = post_words["docs"][0]["terms"]
       extracted_keywords = []
 
@@ -84,6 +82,7 @@ class Post
 
       # # set post.keywords equal to the extracted keywords array, so that keywords are more easily available in view
       # self.keywords = extracted_keywords
+
 
       # return extracted_keywords
 
@@ -132,12 +131,6 @@ class Post
     # binding.pry
     response_json = JSON.parse(response.body)
     #HANDLE CASE OF 0 RESULTS
-
-    # if response resultset is nil, run function again
-    # or random video
-    # if response_json["resultset"].nil? 
-    #   return cooper_hewitt_random_artwork_generator
-    # end
 
     # EXTRACT ARTWORK URI AND PUSH TO CONTAINER ARRAY
     # container_of_art = []
