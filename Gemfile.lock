@@ -70,7 +70,7 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     bower-rails (0.9.2)
-    bson (2.3.0)
+    bson (3.2.6)
     bson_ext (1.5.1)
     builder (3.2.2)
     byebug (3.5.1)
@@ -151,21 +151,18 @@ GEM
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
-    mongoid (4.0.1)
+    mongo (2.1.1)
+      bson (~> 3.0)
+    mongoid (5.0.0)
       activemodel (~> 4.0)
-      moped (~> 2.0.0)
+      mongo (~> 2.1)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
-    moped (2.0.3)
-      bson (~> 2.2)
-      connection_pool (~> 2.0)
-      optionable (~> 0.2.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    optionable (0.2.0)
     origin (2.1.1)
     poltergeist (1.6.0)
       capybara (~> 2.1)
@@ -327,7 +324,7 @@ DEPENDENCIES
   httparty
   jquery-rails
   masonry-rails
-  mongoid (~> 4.0.0)
+  mongoid (~> 5.0.0)
   poltergeist
   pry
   quiet_assets
@@ -347,3 +344,6 @@ DEPENDENCIES
   unirest (~> 1.1.2)
   web-console (~> 2.0)
   will_paginate (~> 3.0.7)
+
+BUNDLED WITH
+   1.10.6
